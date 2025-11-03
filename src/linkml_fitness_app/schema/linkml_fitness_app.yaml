@@ -1,0 +1,73 @@
+---
+id: fitness-schema
+name: fitness-app
+description: Schema for the fitness tracking platform
+version: 0.0.1
+
+imports:
+- linkml:types
+
+prefixes:
+  fit: https://example.org/fit/
+  linkml: https://w3id.org/linkml/
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  dc: http://purl.org/dc/elements/1.1/
+  dcterms: http://purl.org/dc/terms/
+  prov: http://www.w3.org/ns/prov#
+default_prefix: fit
+classes:
+  Thing:
+    description: The root class for all entities in the fitness app
+    slots:
+      - id
+  User:
+    description: A registered app user
+    is_a: Thing
+    slots:
+      - name
+      - email
+      - age
+      - workouts
+  Workout:
+    description: A recorded workout session
+    is_a: Thing
+    slots:
+      - workout_date
+      - duration
+      - exercises
+  Exercise:
+    description: Individual exercise performed
+    is_a: Thing
+    slots:
+      - name
+      - sets
+      - reps
+      - weight
+
+slots:
+  id:
+    identifier: true
+    range: integer
+  name:
+    range: string
+  email:
+    range: string
+  age:
+    range: integer
+  workout_date:
+    range: date
+  duration:
+    range: float
+  sets:
+    range: integer
+  reps:
+    range: integer
+  weight:
+    range: float
+  exercises:
+    multivalued: true
+    range: Exercise
+  workouts:
+    multivalued: true
+    range: Workout
