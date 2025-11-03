@@ -17,7 +17,7 @@ gen-project:
   mv project/*.py src/linkml_fitness_app/datamodel
   uv run --group dev gen-typescript {{source_schema_path}} > project/typescript/{{schema_name}}.ts || true ; \
   uv run --group dev gen-markdown-datadict  --anchor-style mkdocs  --diagram-dir datadict/images --pretty-format-svg {{source_schema_path}} > datadict/datadict.md
- 
+
 # Locally serve data dictionary
 [group('model development')]
 serve-data-dict: gen-project

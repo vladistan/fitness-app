@@ -95,7 +95,7 @@ Workout ||--}o Exercise : "exercises"
 
 #### Referenced by:
 
- *  **[Workout](#workout)** : exercises  <sub>0..\*</sub> 
+ *  **[Workout](#workout)** : exercises  <sub>0..\*</sub>
 
 
 
@@ -200,7 +200,7 @@ Workout ||--}o Exercise : "exercises"
 
 #### Referenced by:
 
- *  **[User](#user)** : workouts  <sub>0..\*</sub> 
+ *  **[User](#user)** : workouts  <sub>0..\*</sub>
 
 
 
@@ -220,4 +220,3 @@ Workout ||--}o Exercise : "exercises"
 | <a id="weight"></a>**weight** | <sub>0..1</sub><br/>float | [Exercise](#exercise) |
 | <a id="workout_date"></a>**workout_date** | <sub>0..1</sub><br/>date | [Workout](#workout) |
 | <a id="workouts"></a>**workouts** | <sub>0..\*</sub><br/>[Workout](#workout) | [User](#user) |
-

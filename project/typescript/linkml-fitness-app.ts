@@ -42,6 +42,3 @@ export interface Exercise extends Thing {
     reps?: number,
     weight?: number,
 }
-
-
-

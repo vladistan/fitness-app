@@ -6,74 +6,33 @@
 # description: Schema for the fitness tracking platform
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 
-import dataclasses
-import re
 from dataclasses import dataclass
-from datetime import (
-    date,
-    datetime,
-    time
-)
-from typing import (
-    Any,
-    ClassVar,
-    Dict,
-    List,
-    Optional,
-    Union
-)
+from typing import Any, ClassVar, Optional, Union
 
-from jsonasobj2 import (
-    JsonObj,
-    as_dict
-)
-from linkml_runtime.linkml_model.meta import (
-    EnumDefinition,
-    PermissibleValue,
-    PvFormulaOptions
-)
 from linkml_runtime.utils.curienamespace import CurieNamespace
-from linkml_runtime.utils.enumerations import EnumDefinitionImpl
-from linkml_runtime.utils.formatutils import (
-    camelcase,
-    sfx,
-    underscore
-)
-from linkml_runtime.utils.metamodelcore import (
-    bnode,
-    empty_dict,
-    empty_list
-)
+from linkml_runtime.utils.metamodelcore import empty_list
 from linkml_runtime.utils.slot import Slot
-from linkml_runtime.utils.yamlutils import (
-    YAMLRoot,
-    extended_float,
-    extended_int,
-    extended_str
-)
-from rdflib import (
-    Namespace,
-    URIRef
-)
+from linkml_runtime.utils.yamlutils import YAMLRoot, extended_int
+from rdflib import URIRef
 
-from linkml_runtime.linkml_model.types import Date, Float, Integer, String
 from linkml_runtime.utils.metamodelcore import XSDDate
 
 metamodel_version = "1.7.0"
 version = "0.0.1"
 
 # Namespaces
-DC = CurieNamespace('dc', 'http://purl.org/dc/elements/1.1/')
-DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
-FIT = CurieNamespace('fit', 'https://example.org/fit/')
-LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
-PROV = CurieNamespace('prov', 'http://www.w3.org/ns/prov#')
-RDF = CurieNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
-RDFS = CurieNamespace('rdfs', 'http://www.w3.org/2000/01/rdf-schema#')
+DC = CurieNamespace("dc", "http://purl.org/dc/elements/1.1/")
+DCTERMS = CurieNamespace("dcterms", "http://purl.org/dc/terms/")
+FIT = CurieNamespace("fit", "https://example.org/fit/")
+LINKML = CurieNamespace("linkml", "https://w3id.org/linkml/")
+PROV = CurieNamespace("prov", "http://www.w3.org/ns/prov#")
+RDF = CurieNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+RDFS = CurieNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
 DEFAULT_ = FIT
 
 
 # Types
+
 
 # Class references
 class ThingId(extended_int):
@@ -97,6 +56,7 @@ class Thing(YAMLRoot):
     """
     The root class for all entities in the fitness app
     """
+
     _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = FIT["Thing"]
@@ -120,6 +80,7 @@ class User(Thing):
     """
     A registered app user
     """
+
     _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = FIT["User"]
@@ -131,7 +92,9 @@ class User(Thing):
     name: Optional[str] = None
     email: Optional[str] = None
     age: Optional[int] = None
-    workouts: Optional[Union[Union[int, WorkoutId], list[Union[int, WorkoutId]]]] = empty_list()
+    workouts: Optional[Union[Union[int, WorkoutId], list[Union[int, WorkoutId]]]] = (
+        empty_list()
+    )
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -150,7 +113,9 @@ class User(Thing):
 
         if not isinstance(self.workouts, list):
             self.workouts = [self.workouts] if self.workouts is not None else []
-        self.workouts = [v if isinstance(v, WorkoutId) else WorkoutId(v) for v in self.workouts]
+        self.workouts = [
+            v if isinstance(v, WorkoutId) else WorkoutId(v) for v in self.workouts
+        ]
 
         super().__post_init__(**kwargs)
 
@@ -160,6 +125,7 @@ class Workout(Thing):
     """
     A recorded workout session
     """
+
     _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = FIT["Workout"]
@@ -170,7 +136,9 @@ class Workout(Thing):
     id: Union[int, WorkoutId] = None
     workout_date: Optional[Union[str, XSDDate]] = None
     duration: Optional[float] = None
-    exercises: Optional[Union[Union[int, ExerciseId], list[Union[int, ExerciseId]]]] = empty_list()
+    exercises: Optional[Union[Union[int, ExerciseId], list[Union[int, ExerciseId]]]] = (
+        empty_list()
+    )
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -186,7 +154,9 @@ class Workout(Thing):
 
         if not isinstance(self.exercises, list):
             self.exercises = [self.exercises] if self.exercises is not None else []
-        self.exercises = [v if isinstance(v, ExerciseId) else ExerciseId(v) for v in self.exercises]
+        self.exercises = [
+            v if isinstance(v, ExerciseId) else ExerciseId(v) for v in self.exercises
+        ]
 
         super().__post_init__(**kwargs)
 
@@ -196,6 +166,7 @@ class Exercise(Thing):
     """
     Individual exercise performed
     """
+
     _inherited_slots: ClassVar[list[str]] = []
 
     class_class_uri: ClassVar[URIRef] = FIT["Exercise"]
@@ -237,35 +208,102 @@ class Exercise(Thing):
 class slots:
     pass
 
-slots.id = Slot(uri=FIT.id, name="id", curie=FIT.curie('id'),
-                   model_uri=FIT.id, domain=None, range=URIRef)
 
-slots.name = Slot(uri=FIT.name, name="name", curie=FIT.curie('name'),
-                   model_uri=FIT.name, domain=None, range=Optional[str])
+slots.id = Slot(
+    uri=FIT.id,
+    name="id",
+    curie=FIT.curie("id"),
+    model_uri=FIT.id,
+    domain=None,
+    range=URIRef,
+)
 
-slots.email = Slot(uri=FIT.email, name="email", curie=FIT.curie('email'),
-                   model_uri=FIT.email, domain=None, range=Optional[str])
+slots.name = Slot(
+    uri=FIT.name,
+    name="name",
+    curie=FIT.curie("name"),
+    model_uri=FIT.name,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.age = Slot(uri=FIT.age, name="age", curie=FIT.curie('age'),
-                   model_uri=FIT.age, domain=None, range=Optional[int])
+slots.email = Slot(
+    uri=FIT.email,
+    name="email",
+    curie=FIT.curie("email"),
+    model_uri=FIT.email,
+    domain=None,
+    range=Optional[str],
+)
 
-slots.workout_date = Slot(uri=FIT.workout_date, name="workout_date", curie=FIT.curie('workout_date'),
-                   model_uri=FIT.workout_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.age = Slot(
+    uri=FIT.age,
+    name="age",
+    curie=FIT.curie("age"),
+    model_uri=FIT.age,
+    domain=None,
+    range=Optional[int],
+)
 
-slots.duration = Slot(uri=FIT.duration, name="duration", curie=FIT.curie('duration'),
-                   model_uri=FIT.duration, domain=None, range=Optional[float])
+slots.workout_date = Slot(
+    uri=FIT.workout_date,
+    name="workout_date",
+    curie=FIT.curie("workout_date"),
+    model_uri=FIT.workout_date,
+    domain=None,
+    range=Optional[Union[str, XSDDate]],
+)
 
-slots.sets = Slot(uri=FIT.sets, name="sets", curie=FIT.curie('sets'),
-                   model_uri=FIT.sets, domain=None, range=Optional[int])
+slots.duration = Slot(
+    uri=FIT.duration,
+    name="duration",
+    curie=FIT.curie("duration"),
+    model_uri=FIT.duration,
+    domain=None,
+    range=Optional[float],
+)
 
-slots.reps = Slot(uri=FIT.reps, name="reps", curie=FIT.curie('reps'),
-                   model_uri=FIT.reps, domain=None, range=Optional[int])
+slots.sets = Slot(
+    uri=FIT.sets,
+    name="sets",
+    curie=FIT.curie("sets"),
+    model_uri=FIT.sets,
+    domain=None,
+    range=Optional[int],
+)
 
-slots.weight = Slot(uri=FIT.weight, name="weight", curie=FIT.curie('weight'),
-                   model_uri=FIT.weight, domain=None, range=Optional[float])
+slots.reps = Slot(
+    uri=FIT.reps,
+    name="reps",
+    curie=FIT.curie("reps"),
+    model_uri=FIT.reps,
+    domain=None,
+    range=Optional[int],
+)
 
-slots.exercises = Slot(uri=FIT.exercises, name="exercises", curie=FIT.curie('exercises'),
-                   model_uri=FIT.exercises, domain=None, range=Optional[Union[Union[int, ExerciseId], list[Union[int, ExerciseId]]]])
+slots.weight = Slot(
+    uri=FIT.weight,
+    name="weight",
+    curie=FIT.curie("weight"),
+    model_uri=FIT.weight,
+    domain=None,
+    range=Optional[float],
+)
 
-slots.workouts = Slot(uri=FIT.workouts, name="workouts", curie=FIT.curie('workouts'),
-                   model_uri=FIT.workouts, domain=None, range=Optional[Union[Union[int, WorkoutId], list[Union[int, WorkoutId]]]])
+slots.exercises = Slot(
+    uri=FIT.exercises,
+    name="exercises",
+    curie=FIT.curie("exercises"),
+    model_uri=FIT.exercises,
+    domain=None,
+    range=Optional[Union[Union[int, ExerciseId], list[Union[int, ExerciseId]]]],
+)
+
+slots.workouts = Slot(
+    uri=FIT.workouts,
+    name="workouts",
+    curie=FIT.curie("workouts"),
+    model_uri=FIT.workouts,
+    domain=None,
+    range=Optional[Union[Union[int, WorkoutId], list[Union[int, WorkoutId]]]],
+)

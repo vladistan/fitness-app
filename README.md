@@ -9,7 +9,7 @@ This project uses modern Python development tools for efficient development:
 - **[uv](https://docs.astral.sh/uv/)**: A fast Python package manager and virtual environment tool
 - **[just](https://just.systems/)**: A command runner for project tasks (similar to make, but simpler)
 
-## Model 
+## Model
 
 The model is documented in [datadict.md](datadict/datadict.md)
 
@@ -33,4 +33,3 @@ Key commands include:
 
 - `just gen-project` - Generate all project artifacts (schemas, types, documentation)
 - `just serve-data-dict` - Generate and serve the data dictionary documentation locally
-
