@@ -1,0 +1,143 @@
+{
+    "$defs": {
+        "Exercise": {
+            "additionalProperties": false,
+            "description": "Individual exercise performed",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reps": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "sets": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "weight": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Exercise",
+            "type": "object"
+        },
+        "Thing": {
+            "additionalProperties": false,
+            "description": "The root class for all entities in the fitness app",
+            "properties": {
+                "id": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Thing",
+            "type": "object"
+        },
+        "User": {
+            "additionalProperties": false,
+            "description": "A registered app user",
+            "properties": {
+                "age": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "email": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "workouts": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "User",
+            "type": "object"
+        },
+        "Workout": {
+            "additionalProperties": false,
+            "description": "A recorded workout session",
+            "properties": {
+                "duration": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "exercises": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "workout_date": {
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Workout",
+            "type": "object"
+        }
+    },
+    "$id": "fitness-schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "fitness-app",
+    "type": "object",
+    "version": "0.0.1"
+}

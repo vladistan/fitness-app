@@ -1,0 +1,35 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
+// version: 0.0.1
+// Individual exercise performed
+message Exercise
+ {
+  integer id = 0
+  string name = 0
+  integer sets = 0
+  integer reps = 0
+  float weight = 0
+ }
+// The root class for all entities in the fitness app
+message Thing
+ {
+  integer id = 0
+ }
+// A registered app user
+message User
+ {
+  integer id = 0
+  string name = 0
+  string email = 0
+  integer age = 0
+ repeated  workout workouts = 0
+ }
+// A recorded workout session
+message Workout
+ {
+  integer id = 0
+  date workoutDate = 0
+  float duration = 0
+ repeated  exercise exercises = 0
+ }
