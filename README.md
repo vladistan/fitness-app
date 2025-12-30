@@ -9,13 +9,13 @@ This project uses modern Python development tools for efficient development:
 - **[uv](https://docs.astral.sh/uv/)**: A fast Python package manager and virtual environment tool
 - **[just](https://just.systems/)**: A command runner for project tasks (similar to make, but simpler)
 
-## Model
+# Model
 
 The model is documented in [datadict.md](datadict/datadict.md)
 
-## Getting Started
+# Getting Started
 
-### Using GitHub Codespaces
+## Using GitHub Codespaces
 
 For the easiest setup, create a GitHub Codespace which will provide a pre-configured development environment:
 
