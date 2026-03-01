@@ -17,8 +17,8 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-linkml = { git = "https://github.com/vladistan/linkml.git", branch = "markdown-datadict-generator" }
-linkml-runtime = { git = "https://github.com/vladistan/linkml-runtime.git", branch = "main" }
+linkml = { path = "../linkml/packages/linkml", editable = true }
+linkml-runtime = { path = "../linkml/packages/linkml_runtime", editable = true }
 grip = { git = "https://github.com/vladistan/grip.git", branch = "handle-test-sensitive-anchors" }
 
 [dependency-groups]
